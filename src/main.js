@@ -11,12 +11,12 @@ import VueApollo from 'vue-apollo'
 
 const httpLink = new HttpLink({
   // You should use an absolute URL here
-  uri: 'https://polkastats.io/api/v3',
+  uri: 'POLKASTATS_BACKEND_HTTP_GRAPHQL_ENDPOINT',
 })
 
 // Create the subscription websocket link
 const wsLink = new WebSocketLink({
-  uri: 'wss://polkastats.io/api/v3',
+  uri: 'POLKASTATS_BACKEND_WS_GRAPHQL_ENDPOINT',
   options: {
     reconnect: true,
   },

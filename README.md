@@ -29,12 +29,17 @@ cd polkapulse
 yarn
 ```
 
-Edit `app/main.js`, in line 19 enter the full PolkaStats Backend V3 API websocket URL:
+Edit `app/main.js`, in line 4 and 19 enter the full PolkaStats Backend V3 API http and websocket URLS:
 
 ```
+const httpLink = new HttpLink({
+  // You should use an absolute URL here
+  uri: 'POLKASTATS_BACKEND_HTTP_GRAPHQL_ENDPOINT',
+})
+
 // Create the subscription websocket link
 const wsLink = new WebSocketLink({
-  uri: 'wss://POLKASTATS_BACKEND_GRAPHQL_ENDPOINT',
+  uri: 'POLKASTATS_BACKEND_WS_GRAPHQL_ENDPOINT',
   options: {
     reconnect: true,
   },
