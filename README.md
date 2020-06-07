@@ -6,7 +6,7 @@
 
 It shows (from inside to outside) session, era and day progress. Also show current block height and last finalized block.
 
-Polka Pulse was built using (PolkaStats Backend V3)[https://github.com/Colm3na/polkastats-backend-v3] graphql API to fetch chain data.
+Polka Pulse was built using [PolkaStats Backend V3](https://github.com/Colm3na/polkastats-backend-v3) graphql API to fetch chain data.
 
 ### Try it out
 
