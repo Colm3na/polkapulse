@@ -2,6 +2,10 @@
 
 ## Kusama network activity visualizer
 
+This project participate in [Polkadot Launch Bounty](https://gitcoin.co/issue/Web3Foundation/build-polkadot/1/4391).
+
+Live demo: https://polkapulse.polkastats.io
+
 ![Polka Pulse](public/polkapulse.png?raw=true "Polka Pulse")
 
 It shows (from inside to outside) session, era and day progress. Also show current block height and last finalized block.
