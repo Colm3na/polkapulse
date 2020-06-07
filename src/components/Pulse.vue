@@ -2,19 +2,19 @@
   <div>
     <div class="pulse">
       <div class="rings">
-        <div class="day" v-bind:style="{boxShadow:`0px 0px ${chainState.total_events * 20}px ${chainState.total_events * 5}px rgba(230,0,122,.4)`}">
+        <div class="day tooltip" title="Daily progress, 4 eras / day in Kusama" v-bind:style="{boxShadow:`0px 0px ${chainState.total_events * 20}px ${chainState.total_events * 5}px rgba(230,0,122,.4)`}">
           <input class="knob day" data-min="0" data-max="14400" data-readOnly="true" data-bgColor="#333" data-fgColor="#e6007a" data-displayInput=false data-width="500" data-height="500" data-thickness=".25">
         </div>
-        <div class="era" style="">
+        <div class="era tooltip" title="Era progress">
           <input class="knob era" data-min="0" data-max="3600" data-readOnly="true" data-bgColor="#333" data-fgColor="#ec5aa7" data-displayInput=false data-width="350" data-height="350" data-thickness=".4">
         </div>
-        <div class="session" style="">
+        <div class="session tooltip" title="Session progress">
           <input class="knob session" data-min="0" data-max="600" data-readOnly="true" data-bgColor="#333" data-fgColor="#c1f85e" data-displayInput=false data-width="194" data-height="194" data-thickness=".2">
         </div>
-        <div class="lastBlock" style="">
+        <div class="lastBlock tooltip" title="Current block height">
           #{{ formatNumber(chainState.block_number) }}
         </div>
-        <div class="lastFinalizedBlock" style="">
+        <div class="lastFinalizedBlock tooltip" title="Last finalized block">
           #{{ formatNumber(chainState.block_number_finalized) }}
         </div>
       </div>
@@ -145,6 +145,7 @@ export default {
         }
       }
     });
+    window.$('.tooltip').tooltipster();
   },
   methods: {
     formatNumber: function(number) {
