@@ -2,7 +2,7 @@
   <div id="app">
     <h1>KUSAMA PULSE</h1>
     <Pulse />
-    <p class="footer">Coded with love by Mario Pino / Built using PolkaStats Backend V3</p>
+    <p class="footer">Coded with love by <a href="https://github.com/mariopino" target="_blank">Mario Pino</a> / Built using <a href="https://github.com/Colm3na/polkastats-backend-v3" target="_blank">PolkaStats Backend V3</a></p>
   </div>
 </template>
 
@@ -29,6 +29,11 @@ h1 {
   font-size: 70px;
   font-weight: 200;
   letter-spacing: 20px;
+}
+a {
+  color: white;
+  font-weight: 400;
+  text-decoration: none;
 }
 .footer {
   font-size: 10px;
