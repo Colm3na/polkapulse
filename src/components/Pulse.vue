@@ -3,13 +3,13 @@
     <div class="pulse">
       <div class="rings">
         <div class="day" v-bind:style="{boxShadow:`0px 0px ${chainState.total_events * 20}px ${chainState.total_events * 5}px rgba(230,0,122,.4)`}">
-          <input class="knob day" data-min="0" data-max="14400" data-readOnly="true" data-bgColor="#333" data-fgColor="#ec76b5" data-displayInput=false data-width="500" data-height="500" data-thickness=".25">
+          <input class="knob day" data-min="0" data-max="14400" data-readOnly="true" data-bgColor="#333" data-fgColor="#e6007a" data-displayInput=false data-width="500" data-height="500" data-thickness=".25">
         </div>
         <div class="era" style="">
-          <input class="knob era" data-min="0" data-max="3600" data-readOnly="true" data-bgColor="#333" data-fgColor="#e6007a" data-displayInput=false data-width="350" data-height="350" data-thickness=".4">
+          <input class="knob era" data-min="0" data-max="3600" data-readOnly="true" data-bgColor="#333" data-fgColor="#ec5aa7" data-displayInput=false data-width="350" data-height="350" data-thickness=".4">
         </div>
         <div class="session" style="">
-          <input class="knob session" data-min="0" data-max="600" data-readOnly="true" data-bgColor="#333" data-fgColor="#e6007a" data-displayInput=false data-width="194" data-height="194" data-thickness=".2">
+          <input class="knob session" data-min="0" data-max="600" data-readOnly="true" data-bgColor="#333" data-fgColor="#c1f85e" data-displayInput=false data-width="194" data-height="194" data-thickness=".2">
         </div>
         <div class="lastBlock" style="">
           #{{ formatNumber(chainState.block_number) }}
@@ -17,6 +17,17 @@
         <div class="lastFinalizedBlock" style="">
           #{{ formatNumber(chainState.block_number_finalized) }}
         </div>
+      </div>
+    </div>
+    <div id="legend">
+      <div id="session-legend">
+        <div id="session-color"></div> SESSION PROGRESS {{ formatNumber(chainState.session_progress) }} / {{ formatNumber(chainState.session_length) }}
+      </div>
+      <div id="era-legend">
+        <div id="era-color"></div> ERA PROGRESS {{ formatNumber(chainState.era_progress) }} / {{ formatNumber(chainState.era_length) }}
+      </div>
+      <div id="day-legend">
+        <div id="day-color"></div> DAY PROGRESS {{ formatNumber(chainState.day_progress) }} / {{ formatNumber(chainState.era_length * 4) }}
       </div>
     </div>
   </div>
@@ -186,10 +197,42 @@ export default {
   top: 163px;
 }
 .pulse {
-  height: 700px;
+  height: 600px;
   width: 100%;
 }
 input {
   display: none;
+}
+
+#legend {
+  color: white;
+}
+
+#legend {
+  color: white;
+}
+
+#day-legend,
+#era-legend,
+#session-legend {
+  display: inline-block;
+  margin: 0 1rem;
+}
+#day-color,
+#era-color,
+#session-color {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 1rem;
+}
+#day-color {
+  background: #e6007a;
+}
+#era-color {
+  background: #ec5aa7;
+}
+#session-color {
+  background: #c1f85e;
 }
 </style>
