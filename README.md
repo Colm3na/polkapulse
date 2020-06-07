@@ -6,6 +6,8 @@
 
 It shows (from inside to outside) session, era and day progress. Also show current block height and last finalized block.
 
+We are using Kusama instead Polkadot cause Polkadot is currently in PoA mode so there's no era change by now.
+
 The circle outside shadow/blur is dinamic and depends on the number of events included in the last block. That way you can visualize the network
 activity with a nice heartbeat.
 
