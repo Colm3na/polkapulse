@@ -8,7 +8,7 @@ Live demo: https://polkapulse.polkastats.io
 
 ![Polka Pulse](public/polkapulse.png?raw=true "Polka Pulse")
 
-It shows (from inside to outside) session, era and day progress. Also show current block height and last finalized block.
+It shows (from inside to outside) block time, session progress, era progress and day progress. Also show current block height and last finalized block.
 
 We are using Kusama instead Polkadot cause Polkadot is currently in PoA mode so there's no era change by now.
 
