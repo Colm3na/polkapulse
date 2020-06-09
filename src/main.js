@@ -6,17 +6,20 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { split } from 'apollo-link'
 import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
-
 import VueApollo from 'vue-apollo'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 
 const httpLink = new HttpLink({
   // You should use an absolute URL here
-  uri: 'POLKASTATS_BACKEND_HTTP_GRAPHQL_ENDPOINT',
+  uri: 'https://polkastats.io/api/v3',
 })
 
 // Create the subscription websocket link
 const wsLink = new WebSocketLink({
-  uri: 'POLKASTATS_BACKEND_WS_GRAPHQL_ENDPOINT',
+  uri: 'wss://polkastats.io/api/v3',
   options: {
     reconnect: true,
   },
