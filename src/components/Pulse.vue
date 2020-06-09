@@ -2,22 +2,22 @@
   <div>
     <div class="pulse">
       <div class="rings">
-        <div class="day" title="Daily progress, 4 eras / day in Kusama" v-bind:style="{boxShadow:`0px 0px ${chainState.total_events * 20}px ${chainState.total_events * 5}px rgba(230,0,122,.4)`}">
+        <div class="day" v-b-tooltip.hover title="Daily progress, 4 eras / day in Kusama" v-bind:style="{boxShadow:`0px 0px ${chainState.total_events * 20}px ${chainState.total_events * 5}px rgba(230,0,122,.4)`}">
           <input class="knob day" data-min="0" data-max="14400" data-readOnly="true" data-bgColor="#333" data-fgColor="#e6007a" data-displayInput=false data-width="500" data-height="500" data-thickness=".25">
         </div>
-        <div class="era" title="Era progress">
+        <div class="era" v-b-tooltip.hover :title="`Era progress, current era index is #${chainState.current_era}`">
           <input class="knob era" data-min="0" data-max="3600" data-readOnly="true" data-bgColor="#333" data-fgColor="#ec5aa7" data-displayInput=false data-width="350" data-height="350" data-thickness=".4">
         </div>
-        <div class="session" title="Session progress">
+        <div class="session" v-b-tooltip.hover :title="`Session progress, current session index is #${chainState.current_index}`">
           <input class="knob session" data-min="0" data-max="600" data-readOnly="true" data-bgColor="#333" data-fgColor="#c1f85e" data-displayInput=false data-width="194" data-height="194" data-thickness=".2">
         </div>
-        <div class="block" title="Block time">
+        <div class="block" v-b-tooltip.hover title="Block time">
           <input class="knob block" data-min="0" data-max="6000" data-readOnly="true" data-bgColor="#333" data-fgColor="#c1f85e" data-displayInput=false data-width="144" data-height="194" data-thickness=".05">
         </div>
-        <div class="lastBlock" title="Current block height">
+        <div class="lastBlock" v-b-tooltip.hover title="Current block height">
           #{{ formatNumber(chainState.block_number) }}
         </div>
-        <div class="lastFinalizedBlock" title="Last finalized block">
+        <div class="lastFinalizedBlock" v-b-tooltip.hover title="Last finalized block">
           #{{ formatNumber(chainState.block_number_finalized) }}
         </div>
       </div>
