@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="pulse">
+    <!-- Desktop -->
+    <div class="pulse d-none d-md-block d-lg-block">
       <div class="rings">
         <div class="day" v-b-tooltip.hover title="Daily progress, 4 eras / day in Kusama" v-bind:style="{boxShadow:`0px 0px ${chainState.total_events * 20}px ${chainState.total_events * 5}px rgba(230,0,122,.4)`}">
           <input class="knob day" data-min="0" data-max="14400" data-readOnly="true" data-bgColor="#333" data-fgColor="#e6007a" data-displayInput=false data-width="500" data-height="500" data-thickness=".25">
@@ -12,7 +13,7 @@
           <input class="knob session" data-min="0" data-max="600" data-readOnly="true" data-bgColor="#333" data-fgColor="#c1f85e" data-displayInput=false data-width="194" data-height="194" data-thickness=".2">
         </div>
         <div class="block" v-b-tooltip.hover title="Block time">
-          <input class="knob block" data-min="0" data-max="6000" data-readOnly="true" data-bgColor="#333" data-fgColor="#c1f85e" data-displayInput=false data-width="144" data-height="194" data-thickness=".05">
+          <input class="knob block" data-min="0" data-max="6000" data-readOnly="true" data-bgColor="#333" data-fgColor="#67f156" data-displayInput=false data-width="144" data-height="194" data-thickness=".05">
         </div>
         <div class="lastBlock" v-b-tooltip.hover title="Current block height">
           #{{ formatNumber(chainState.block_number) }}
@@ -22,17 +23,41 @@
         </div>
       </div>
     </div>
-    <div id="legend">
-      <div id="session-legend">
-        <div id="session-color"></div> SESSION PROGRESS {{ formatNumber(chainState.session_progress) }} / {{ formatNumber(chainState.session_length) }}
-      </div>
-      <div id="era-legend">
-        <div id="era-color"></div> ERA PROGRESS {{ formatNumber(chainState.era_progress) }} / {{ formatNumber(chainState.era_length) }}
-      </div>
-      <div id="day-legend">
-        <div id="day-color"></div> DAY PROGRESS {{ formatNumber(chainState.day_progress) }} / {{ formatNumber(chainState.era_length * 4) }}
+    <!-- Mobile -->
+    <div class="pulse-mobile d-block d-md-none d-lg-none">
+      <div class="rings">
+        <div class="day" v-b-tooltip.hover title="Daily progress, 4 eras / day in Kusama" v-bind:style="{boxShadow:`0px 0px ${chainState.total_events * 20}px ${chainState.total_events * 5}px rgba(230,0,122,.4)`}">
+          <input class="knob day" data-min="0" data-max="14400" data-readOnly="true" data-bgColor="#333" data-fgColor="#e6007a" data-displayInput=false data-width="380" data-height="380" data-thickness=".15">
+        </div>
+        <div class="era" v-b-tooltip.hover :title="`Era progress, current era index is #${chainState.current_era}`">
+          <input class="knob era" data-min="0" data-max="3600" data-readOnly="true" data-bgColor="#333" data-fgColor="#ec5aa7" data-displayInput=false data-width="310" data-height="310" data-thickness=".32">
+        </div>
+        <div class="session" v-b-tooltip.hover :title="`Session progress, current session index is #${chainState.current_index}`">
+          <input class="knob session" data-min="0" data-max="600" data-readOnly="true" data-bgColor="#333" data-fgColor="#c1f85e" data-displayInput=false data-width="200" data-height="200" data-thickness=".2">
+        </div>
+        <div class="block" v-b-tooltip.hover title="Block time">
+          <input class="knob block" data-min="0" data-max="6000" data-readOnly="true" data-bgColor="#333" data-fgColor="#67f156" data-displayInput=false data-width="150" data-height="150" data-thickness=".05">
+        </div>
+        <div class="lastBlock" v-b-tooltip.hover title="Current block height">
+          #{{ formatNumber(chainState.block_number) }}
+        </div>
+        <div class="lastFinalizedBlock" v-b-tooltip.hover title="Last finalized block">
+          #{{ formatNumber(chainState.block_number_finalized) }}
+        </div>
       </div>
     </div>
+
+    <b-row id="legend">
+      <b-col id="session-legend">
+        <div id="session-color"></div> SESSION PROGRESS {{ formatNumber(chainState.session_progress) }} / {{ formatNumber(chainState.session_length) }}
+      </b-col>
+      <b-col id="era-legend">
+        <div id="era-color"></div> ERA PROGRESS {{ formatNumber(chainState.era_progress) }} / {{ formatNumber(chainState.era_length) }}
+      </b-col>
+      <b-col id="day-legend">
+        <div id="day-color"></div> DAY PROGRESS {{ formatNumber(chainState.day_progress) }} / {{ formatNumber(chainState.era_length * 4) }}
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -119,7 +144,43 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.lastBlock {
+input {
+  display: none;
+}
+
+/* Desktop */
+
+.pulse {
+  height: 600px;
+  width: 100%;
+}
+.pulse .rings {
+  position: relative;
+  width: 500px;
+  margin: 80px auto;
+}
+.pulse .rings .day {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  border-radius: 50%;
+}
+.pulse .rings .era {
+  position: absolute;
+  left: 85px;
+  top: 85px;
+}
+.pulse .rings .session {
+  position: absolute;
+  left: 163px;
+  top: 163px;
+}
+.pulse .rings .block {
+  position: absolute;
+  left: 188px;
+  top: 188px;
+}
+.pulse .lastBlock {
   font-size: 22px;
   text-align: center;
   color: #f9f9f9;
@@ -128,7 +189,7 @@ export default {
   left: 180px;
   width: 162px;
 }
-.lastFinalizedBlock {
+.pulse .lastFinalizedBlock {
   font-size: 14px;
   text-align: center;
   color: #ec76b5;
@@ -138,48 +199,64 @@ export default {
   width: 162px;
   font-weight: 400;
 }
-.rings {
-  position: relative;
-  width: 500px;
-  margin: 100px auto;
+
+/* Mobile  */
+
+.pulse-mobile {
+  height: 420px;
+  width: 100%;
 }
-.rings .day {
+.pulse-mobile .rings {
+  position: relative;
+  width: 400px;
+  margin: 50px auto;
+}
+.pulse-mobile .rings .day {
   position: absolute;
-  left: 10px;
+  left: 0;
   top: 10px;
   border-radius: 50%;
 }
-.rings .era {
+.pulse-mobile .rings .era {
   position: absolute;
-  left: 85px;
-  top: 85px;
+  left: 35px;
+  top: 45px;
 }
-.rings .session {
+.pulse-mobile .rings .session {
   position: absolute;
-  left: 163px;
-  top: 163px;
+  left: 90px;
+  top: 100px;
 }
-.rings .block {
+.pulse-mobile .rings .block {
   position: absolute;
-  left: 188px;
-  top: 188px;
+  left: 115px;
+  top: 125px;
 }
-.pulse {
-  height: 600px;
-  width: 100%;
+.pulse-mobile .lastBlock {
+  font-size: 22px;
+  text-align: center;
+  color: #f9f9f9;
+  position: absolute;
+  top: 180px;
+  left: 110px;
+  width: 162px;
 }
-input {
-  display: none;
+.pulse-mobile .lastFinalizedBlock {
+  font-size: 14px;
+  text-align: center;
+  color: #ec76b5;
+  position: absolute;
+  top: 215px;
+  left: 110px;
+  width: 162px;
+  font-weight: 400;
 }
+
+/* Legend */
 
 #legend {
   color: white;
 }
-
-#legend {
-  color: white;
-}
-
 #day-legend,
 #era-legend,
 #session-legend {
