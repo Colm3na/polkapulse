@@ -116,6 +116,7 @@ export default {
           }
         }`,
         result ({ data }) {
+          this.$gtag.event('pulse', { method: 'newBlock' })
           const $session = window.$(".session");
           const $era = window.$(".era");
           const $day = window.$(".day");
