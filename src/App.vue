@@ -6,7 +6,7 @@
           <h1>KUSAMA PULSE</h1>
           <h5 class="text-center">
             <small>
-              Alternative visualization for different Kusama time periods. Shadow size depends on the number of events included in the last block.
+              Experimental visualization of different Kusama time periods. Outer glow size depends on the number of events included in the last block.
             </small>
           </h5>
           <Pulse />
