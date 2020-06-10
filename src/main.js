@@ -8,7 +8,11 @@ import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
 import VueApollo from 'vue-apollo'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import VueGtag from "vue-gtag";
 
+Vue.use(VueGtag, {
+  config: { id: "UA-169023180-1" }
+});
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
