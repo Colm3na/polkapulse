@@ -157,7 +157,7 @@ input {
 .pulse .rings {
   position: relative;
   width: 500px;
-  margin: 80px auto;
+  margin: 60px auto;
 }
 .pulse .rings .day {
   position: absolute;
