@@ -5472,6 +5472,11 @@ graphql@^15.0.0:
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.0.0.tgz#042a5eb5e2506a2e2111ce41eb446a8e570b8be9"
   integrity sha512-ZyVO1xIF9F+4cxfkdhOJINM+51B06Friuv4M66W7HzUOeFd+vNzUn4vtswYINPi6sysjf1M2Ri/rwZALqgwbaQ==
 
+gsap@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/gsap/-/gsap-3.3.1.tgz#f11b926c2c1891501209d78a00df48452a2681c8"
+  integrity sha512-jTR6bZKCkB9toO/8Mq2FWIMKjoOgOWjGAeO9SJHTGk0UnGn3C7ViN9QeNzY7Za1QmQ6NWG+ud6MB4e4L23qWMg==
+
 gzip-size@^5.0.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/gzip-size/-/gzip-size-5.1.1.tgz#cb9bee692f87c0612b232840a873904e4c135274"

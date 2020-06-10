@@ -3,7 +3,7 @@
     <!-- Desktop -->
     <div class="pulse d-none d-md-block d-lg-block">
       <div class="rings">
-        <div class="day" v-b-tooltip.hover title="Daily progress, 4 eras / day in Kusama" v-bind:style="{boxShadow:`0px 0px ${chainState.total_events * 20}px ${chainState.total_events * 5}px rgba(230,0,122,.4)`}">
+        <div class="day" v-b-tooltip.hover title="Daily progress, 4 eras / day in Kusama" v-bind:style="{boxShadow:`0px 0px ${animatedShadow}px ${animatedShadow}px rgba(230,0,122,.4)`}">
           <input class="knob day" data-min="0" data-max="14400" data-readOnly="true" data-bgColor="#333" data-fgColor="#e6007a" data-displayInput=false data-width="500" data-height="500" data-thickness=".25">
         </div>
         <div class="era" v-b-tooltip.hover :title="`Era progress, current era index is #${chainState.current_era}`">
@@ -15,18 +15,22 @@
         <div class="block" v-b-tooltip.hover title="Block time">
           <input class="knob block" data-min="0" data-max="6000" data-readOnly="true" data-bgColor="#333" data-fgColor="#67f156" data-displayInput=false data-width="144" data-height="194" data-thickness=".05">
         </div>
-        <div class="lastBlock" v-b-tooltip.hover title="Current block height">
-          #{{ formatNumber(chainState.block_number) }}
+        <div class="lastBlock">
+          <a :href="`https://polkastats.io/block?blockNumber=${chainState.block_number}`" v-b-tooltip.hover title="Current block" target="_blank">
+            #{{ formatNumber(chainState.block_number) }}
+          </a>
         </div>
-        <div class="lastFinalizedBlock" v-b-tooltip.hover title="Last finalized block">
-          #{{ formatNumber(chainState.block_number_finalized) }}
+        <div class="lastFinalizedBlock">
+          <a :href="`https://polkastats.io/block?blockNumber=${chainState.block_number_finalized}`" v-b-tooltip.hover title="Finalized block" target="_blank">
+            #{{ formatNumber(chainState.block_number_finalized) }}
+          </a>
         </div>
       </div>
     </div>
     <!-- Mobile -->
     <div class="pulse-mobile d-block d-md-none d-lg-none">
       <div class="rings">
-        <div class="day" v-b-tooltip.hover title="Daily progress, 4 eras / day in Kusama" v-bind:style="{boxShadow:`0px 0px ${chainState.total_events * 20}px ${chainState.total_events * 5}px rgba(230,0,122,.4)`}">
+        <div class="day" v-b-tooltip.hover title="Daily progress, 4 eras / day in Kusama" v-bind:style="{boxShadow:`0px 0px ${animatedShadow}px ${animatedShadow}px rgba(230,0,122,.4)`}">
           <input class="knob day" data-min="0" data-max="14400" data-readOnly="true" data-bgColor="#333" data-fgColor="#e6007a" data-displayInput=false data-width="380" data-height="380" data-thickness=".15">
         </div>
         <div class="era" v-b-tooltip.hover :title="`Era progress, current era index is #${chainState.current_era}`">
@@ -38,11 +42,15 @@
         <div class="block" v-b-tooltip.hover title="Block time">
           <input class="knob block" data-min="0" data-max="6000" data-readOnly="true" data-bgColor="#333" data-fgColor="#67f156" data-displayInput=false data-width="150" data-height="150" data-thickness=".05">
         </div>
-        <div class="lastBlock" v-b-tooltip.hover title="Current block height">
-          #{{ formatNumber(chainState.block_number) }}
+        <div class="lastBlock">
+          <a :href="`https://polkastats.io/block?blockNumber=${chainState.block_number}`" v-b-tooltip.hover title="Current block" target="_blank">
+            #{{ formatNumber(chainState.block_number) }}
+          </a>
         </div>
-        <div class="lastFinalizedBlock" v-b-tooltip.hover title="Last finalized block">
-          #{{ formatNumber(chainState.block_number_finalized) }}
+        <div class="lastFinalizedBlock">
+          <a :href="`https://polkastats.io/block?blockNumber=${chainState.block_number_finalized}`" v-b-tooltip.hover title="Finalized block" target="_blank">
+            #{{ formatNumber(chainState.block_number_finalized) }}
+          </a>
         </div>
       </div>
     </div>
@@ -63,16 +71,30 @@
 
 <script>
 import gql from 'graphql-tag'
+import { TweenLite } from "gsap";
 
 export default {
   name: 'Pulse',
   data: function () {
     return {
       chainState: {
-        day_progress: 0
+        day_progress: 0,
+        total_events: 0
       },
       blockTime: 0,
       blockTimeTimeout: undefined,
+      numEvents: 0,
+      tweenedEvents: 0
+    }
+  },
+  computed: {
+    animatedShadow: function() {
+      return this.tweenedEvents.toFixed(0);
+    }
+  },
+  watch: {
+    numEvents: function(newValue) {
+      TweenLite.to(this.$data, 0.5, { tweenedEvents: newValue });
     }
   },
   apollo: {
@@ -81,26 +103,14 @@ export default {
         query: gql`subscription block {
           block(limit: 1, order_by: {block_number: desc}) {
             block_number
-            block_author
-            block_author_name
-            block_hash
             block_number_finalized
             current_era
             current_index
             era_length
             era_progress
-            extrinsics_root
-            is_epoch
-            new_accounts
-            num_transfers
-            parent_hash
             session_length
             session_per_era
             session_progress
-            spec_name
-            spec_version
-            state_root
-            timestamp
             total_events
             validator_count
           }
@@ -116,6 +126,7 @@ export default {
             ...data.block[0],
             day_progress
           }
+          this.numEvents = parseInt(data.block[0].total_events) * 20;
           $session.val(this.chainState.session_progress).trigger("change");
           $era.val(this.chainState.era_progress).trigger("change");
           $day.val(this.chainState.day_progress).trigger("change");
@@ -142,14 +153,17 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+/* Global */
 input {
   display: none;
 }
+a {
+  text-decoration: none !important;
+  font-weight: 100;
+}
 
 /* Desktop */
-
 .pulse {
   height: 600px;
   width: 100%;
@@ -180,7 +194,7 @@ input {
   left: 188px;
   top: 188px;
 }
-.pulse .lastBlock {
+.pulse .lastBlock a {
   font-size: 22px;
   text-align: center;
   color: #f9f9f9;
@@ -189,7 +203,7 @@ input {
   left: 180px;
   width: 162px;
 }
-.pulse .lastFinalizedBlock {
+.pulse .lastFinalizedBlock a {
   font-size: 14px;
   text-align: center;
   color: #ec76b5;
@@ -201,7 +215,6 @@ input {
 }
 
 /* Mobile  */
-
 .pulse-mobile {
   height: 420px;
   width: 100%;
@@ -232,7 +245,7 @@ input {
   left: 115px;
   top: 125px;
 }
-.pulse-mobile .lastBlock {
+.pulse-mobile .lastBlock a {
   font-size: 22px;
   text-align: center;
   color: #f9f9f9;
@@ -241,7 +254,7 @@ input {
   left: 110px;
   width: 162px;
 }
-.pulse-mobile .lastFinalizedBlock {
+.pulse-mobile .lastFinalizedBlock a {
   font-size: 14px;
   text-align: center;
   color: #ec76b5;
@@ -253,7 +266,6 @@ input {
 }
 
 /* Legend */
-
 #legend {
   color: white;
 }
