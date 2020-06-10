@@ -48,10 +48,12 @@ h5 {
   letter-spacing: 4px;
   font-weight: 200;
 }
-a {
+.footer a,
+.footer a:hover,
+.footer a:active {
   color: white;
   font-weight: 400;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 .footer {
   font-size: 10px;
