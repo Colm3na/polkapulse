@@ -18,12 +18,12 @@ Vue.use(IconsPlugin)
 
 const httpLink = new HttpLink({
   // You should use an absolute URL here
-  uri: 'https://polkastats.io/api/v3',
+  uri: 'https://kusama.polkastats.io/api/v3',
 })
 
 // Create the subscription websocket link
 const wsLink = new WebSocketLink({
-  uri: 'wss://polkastats.io/api/v3',
+  uri: 'wss://kusama.polkastats.io/api/v3',
   options: {
     reconnect: true,
   },
