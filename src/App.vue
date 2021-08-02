@@ -11,7 +11,7 @@
           </h5>
           <Pulse />
           <p class="footer text-center">
-            Coded with ❤ by <a href="https://github.com/mariopino" target="_blank">Mario Pino</a> for <a href="https://gitcoin.co/issue/Web3Foundation/build-polkadot/1/4391" target="_blank">Polkadot Launch Bounty</a> / Built using <a href="https://github.com/Colm3na/polkastats-backend-v3" target="_blank">PolkaStats Backend</a> / Source on <a href="https://github.com/Colm3na/polkapulse" target="_blank">GitHub</a>
+            Coded with ❤ by <a href="https://github.com/mariopino" target="_blank">Mario Pino</a> for <a href="https://gitcoin.co/issue/Web3Foundation/build-polkadot/1/4391" target="_blank">Polkadot Launch Bounty</a> / Source on <a href="https://github.com/Colm3na/polkapulse" target="_blank">GitHub</a>
           </p>
         </b-col>
       </b-row>  

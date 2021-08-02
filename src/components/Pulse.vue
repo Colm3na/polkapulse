@@ -6,23 +6,23 @@
         <div class="day" v-b-tooltip.hover title="Daily progress, 4 eras / day in Kusama" v-bind:style="{boxShadow:`0px 0px ${animatedShadow}px ${animatedShadow}px rgba(230,0,122,.4)`}">
           <input class="knob day" data-min="0" data-max="14400" data-readOnly="true" data-bgColor="#333" data-fgColor="#e6007a" data-displayInput=false data-width="500" data-height="500" data-thickness=".25">
         </div>
-        <div class="era" v-b-tooltip.hover :title="`Era progress, current era index is #${chainState.current_era}`">
+        <div class="era" v-b-tooltip.hover :title="`Era progress, current era index is #${chainState.currentEra}`">
           <input class="knob era" data-min="0" data-max="3600" data-readOnly="true" data-bgColor="#333" data-fgColor="#ec5aa7" data-displayInput=false data-width="350" data-height="350" data-thickness=".4">
         </div>
-        <div class="session" v-b-tooltip.hover :title="`Session progress, current session index is #${chainState.current_index}`">
+        <div class="session" v-b-tooltip.hover :title="`Session progress, current session index is #${chainState.currentIndex}`">
           <input class="knob session" data-min="0" data-max="600" data-readOnly="true" data-bgColor="#333" data-fgColor="#c1f85e" data-displayInput=false data-width="194" data-height="194" data-thickness=".2">
         </div>
         <div class="block" v-b-tooltip.hover title="Block time">
           <input class="knob block" data-min="0" data-max="6000" data-readOnly="true" data-bgColor="#333" data-fgColor="#67f156" data-displayInput=false data-width="144" data-height="194" data-thickness=".05">
         </div>
         <div class="lastBlock">
-          <a :href="`https://polkastats.io/block?blockNumber=${chainState.block_number}`" v-b-tooltip.hover title="Current block" target="_blank">
-            #{{ formatNumber(chainState.block_number) }}
+          <a :href="`https://kusama.polkastats.io/block?blockNumber=${chainState.blockNumber}`" v-b-tooltip.hover title="Current block" target="_blank">
+            #{{ formatNumber(chainState.blockNumber) }}
           </a>
         </div>
         <div class="lastFinalizedBlock">
-          <a :href="`https://polkastats.io/block?blockNumber=${chainState.block_number_finalized}`" v-b-tooltip.hover title="Finalized block" target="_blank">
-            #{{ formatNumber(chainState.block_number_finalized) }}
+          <a :href="`https://kusama.polkastats.io/block?blockNumber=${chainState.blockNumberFinalized}`" v-b-tooltip.hover title="Finalized block" target="_blank">
+            #{{ formatNumber(chainState.blockNumberFinalized) }}
           </a>
         </div>
       </div>
@@ -33,23 +33,23 @@
         <div class="day" v-b-tooltip.hover title="Daily progress, 4 eras / day in Kusama" v-bind:style="{boxShadow:`0px 0px ${animatedShadow}px ${animatedShadow}px rgba(230,0,122,.4)`}">
           <input class="knob day" data-min="0" data-max="14400" data-readOnly="true" data-bgColor="#333" data-fgColor="#e6007a" data-displayInput=false data-width="380" data-height="380" data-thickness=".15">
         </div>
-        <div class="era" v-b-tooltip.hover :title="`Era progress, current era index is #${chainState.current_era}`">
+        <div class="era" v-b-tooltip.hover :title="`Era progress, current era index is #${chainState.currentEra}`">
           <input class="knob era" data-min="0" data-max="3600" data-readOnly="true" data-bgColor="#333" data-fgColor="#ec5aa7" data-displayInput=false data-width="310" data-height="310" data-thickness=".32">
         </div>
-        <div class="session" v-b-tooltip.hover :title="`Session progress, current session index is #${chainState.current_index}`">
+        <div class="session" v-b-tooltip.hover :title="`Session progress, current session index is #${chainState.currentIndex}`">
           <input class="knob session" data-min="0" data-max="600" data-readOnly="true" data-bgColor="#333" data-fgColor="#c1f85e" data-displayInput=false data-width="200" data-height="200" data-thickness=".2">
         </div>
         <div class="block" v-b-tooltip.hover title="Block time">
           <input class="knob block" data-min="0" data-max="6000" data-readOnly="true" data-bgColor="#333" data-fgColor="#67f156" data-displayInput=false data-width="150" data-height="150" data-thickness=".05">
         </div>
         <div class="lastBlock">
-          <a :href="`https://polkastats.io/block?blockNumber=${chainState.block_number}`" v-b-tooltip.hover title="Current block" target="_blank">
-            #{{ formatNumber(chainState.block_number) }}
+          <a :href="`https://kusama.polkastats.io/block?blockNumber=${chainState.blockNumber}`" v-b-tooltip.hover title="Current block" target="_blank">
+            #{{ chainState.blockNumber }}
           </a>
         </div>
         <div class="lastFinalizedBlock">
-          <a :href="`https://polkastats.io/block?blockNumber=${chainState.block_number_finalized}`" v-b-tooltip.hover title="Finalized block" target="_blank">
-            #{{ formatNumber(chainState.block_number_finalized) }}
+          <a :href="`https://kusama.polkastats.io/block?blockNumber=${chainState.blockNumberFinalized}`" v-b-tooltip.hover title="Finalized block" target="_blank">
+            #{{ formatNumber(chainState.blockNumberFinalized) }}
           </a>
         </div>
       </div>
@@ -57,29 +57,32 @@
 
     <b-row id="legend">
       <b-col id="session-legend">
-        <div id="session-color"></div> SESSION PROGRESS {{ formatNumber(chainState.session_progress) }} / {{ formatNumber(chainState.session_length) }}
+        <div id="session-color"></div> SESSION PROGRESS {{ formatNumber(chainState.sessionProgress) }} / {{ formatNumber(chainState.sessionLength) }}
       </b-col>
       <b-col id="era-legend">
-        <div id="era-color"></div> ERA PROGRESS {{ formatNumber(chainState.era_progress) }} / {{ formatNumber(chainState.era_length) }}
+        <div id="era-color"></div> ERA PROGRESS {{ formatNumber(chainState.eraProgress) }} / {{ formatNumber(chainState.eraLength) }}
       </b-col>
       <b-col id="day-legend">
-        <div id="day-color"></div> DAY PROGRESS {{ formatNumber(chainState.day_progress) }} / {{ formatNumber(chainState.era_length * 4) }}
+        <div id="day-color"></div> DAY PROGRESS {{ formatNumber(chainState.dayProgress) }} / {{ formatNumber(chainState.eraLength * 4) }}
       </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
-import gql from 'graphql-tag'
+// import gql from 'graphql-tag'
 import { TweenLite } from "gsap";
+const { ApiPromise, WsProvider } = require('@polkadot/api');
+import { BigNumber } from "bignumber.js";
 
 export default {
   name: 'Pulse',
   data: function () {
     return {
       chainState: {
-        day_progress: 0,
-        total_events: 0
+        dayProgress: 0,
+        blockNumber: 0,
+        blockNumberFinalized: 0,
       },
       blockTime: 0,
       blockTimeTimeout: undefined,
@@ -97,51 +100,59 @@ export default {
       TweenLite.to(this.$data, 0.5, { tweenedEvents: newValue });
     }
   },
-  apollo: {
-    $subscribe: {
-      block: {
-        query: gql`subscription block {
-          block(limit: 1, order_by: {block_number: desc}) {
-            block_number
-            block_number_finalized
-            current_era
-            current_index
-            era_length
-            era_progress
-            session_length
-            session_per_era
-            session_progress
-            total_events
-            validator_count
-          }
-        }`,
-        result ({ data }) {
-          this.$gtag.event('pulse', { method: 'newBlock' })
-          const $session = window.$(".session");
-          const $era = window.$(".era");
-          const $day = window.$(".day");
-          const $block = window.$(".block");
+  async created() {
+    const provider = new WsProvider('wss://kusama-rpc.polkadot.io');
+    const api = await ApiPromise.create({ provider });
+    await api.rpc.chain.subscribeNewHeads(async (header) => {
+      const progress = await api.derive.session.progress();
+      console.log(`Chain is at block: #${header.number}`);
+      console.log(`Progress: ${JSON.stringify(progress, null, 2)}`);
 
-          const day_progress = (((parseInt(data.block[0].current_era) % 4) * 3600) + parseInt(data.block[0].era_progress));
-          this.chainState = {
-            ...data.block[0],
-            day_progress
-          }
-          this.numEvents = parseInt(data.block[0].total_events) * 20;
-          $session.val(this.chainState.session_progress).trigger("change");
-          $era.val(this.chainState.era_progress).trigger("change");
-          $day.val(this.chainState.day_progress).trigger("change");
+      const blockNumber = header.number;
 
-          this.blockTime = 0;
-          clearInterval(this.blockTimeTimeout);
-          this.blockTimeTimeout = setInterval(() => {
-            this.blockTime += 50
-            $block.val(this.blockTime).trigger("change");
-          }, 50)
+      const finalizedBlockHash = await api.rpc.chain.getFinalizedHead();
+      const finalizedBlockHeader = await api.rpc.chain.getHeader(finalizedBlockHash);
+      const blockNumberFinalized = finalizedBlockHeader.number.toNumber();
 
-        },
+      const blockHash = await api.rpc.chain.getBlockHash(blockNumber);
+
+      const blockEvents = await api.query.system.events.at(blockHash);
+
+      this.numEvents = blockEvents.length  * 20;
+      
+      const currentEra = new BigNumber(progress.currentEra).toNumber(10);
+      const eraProgress = new BigNumber(progress.eraProgress).toNumber(10);
+      const dayProgress = (((parseInt(currentEra) % 4) * 3600) + parseInt(eraProgress));
+
+      this.$gtag.event('pulse', { method: 'newBlock' })
+      const $session = window.$(".session");
+      const $era = window.$(".era");
+      const $day = window.$(".day");
+      const $block = window.$(".block");
+
+      this.chainState = {
+        blockNumber,
+        blockNumberFinalized,
+        ...progress,
+        dayProgress
       }
-    }
+      
+      console.log(`chainState: ${JSON.stringify(this.chainState, null, 2)}`);
+
+      $session.val(this.chainState.sessionProgress).trigger("change");
+      $era.val(this.chainState.eraProgress).trigger("change");
+      $day.val(this.chainState.dayProgress).trigger("change");
+
+      this.blockTime = 0;
+      clearInterval(this.blockTimeTimeout);
+      this.blockTimeTimeout = setInterval(() => {
+        this.blockTime += 50
+        $block.val(this.blockTime).trigger("change");
+      }, 50)
+
+
+
+    });
   },
   mounted() {
     window.$(".knob").knob();
@@ -166,7 +177,7 @@ a {
 
 /* Desktop */
 .pulse {
-  height: 600px;
+  height: 550px;
   width: 100%;
 }
 .pulse .rings {
