@@ -11,7 +11,7 @@
           </h5>
           <Pulse />
           <p class="footer text-center">
-            Coded with ❤ by <a href="https://github.com/mariopino" target="_blank">Mario Pino</a> for <a href="https://gitcoin.co/issue/Web3Foundation/build-polkadot/1/4391" target="_blank">Polkadot Launch Bounty</a> / Source on <a href="https://github.com/Colm3na/polkapulse" target="_blank">GitHub</a>
+            Coded with ❤ by <a href="https://github.com/mariopino" target="_blank">Mario Pino</a> for <a href="https://gitcoin.co/issue/Web3Foundation/build-polkadot/1/4391" target="_blank">Polkadot Launch Bounty</a> / Fork me on <a href="https://github.com/Colm3na/polkapulse" target="_blank">GitHub</a>
           </p>
         </b-col>
       </b-row>  
@@ -35,12 +35,17 @@ $body-bg: #222;
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '../node_modules/bootstrap-vue/src/index.scss';
 
+html {
+  height: 100%;
+}
+
 body {
   background: #222;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   font-weight: 100;
   width: 100%;
+  height: 100%;
 }
 h5 {
   color: white;
@@ -99,6 +104,7 @@ h1 {
 .scanlines {
   overflow: hidden;
   mix-blend-mode: difference;
+  height: 100%;
 }
 .scanlines::before {
   content: "";
