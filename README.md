@@ -17,8 +17,6 @@ activity with a nice heartbeat.
 
 ### Try it out
 
-You'll need a PolkaStats Backend V3 API instance already running.
-
 Clone the repo:
 
 ```
