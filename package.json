@@ -15,7 +15,7 @@
     "bootstrap-vue": "^2.15.0",
     "core-js": "^3.6.5",
     "gsap": "^3.6.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
     "vue-gtag": "^1.6.2"
